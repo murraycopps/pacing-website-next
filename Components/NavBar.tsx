@@ -4,9 +4,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHome, faRunning, faStopwatch, faUser } from '@fortawesome/free-solid-svg-icons'
 import NavBarElement from './NavBarElement'
 import styles from '../styles/NavBar.module.css'
-export default function NavBar({ page }: { page: string }) {
+export default function NavBar({ page, onChange }: { page: string, onChange: (wide: boolean) => void }) {
     const [wide, setWide] = useState(false)
 
+    useEffect(() => {
+        onChange(wide)
+    }, [wide])
     return (
         <div
             className={`${styles.navbar} ${wide ? styles.wide : styles.thin}`}
