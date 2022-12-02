@@ -10,6 +10,7 @@ export default function PageWrapper({ children, page }: { children: ReactNode, p
             <Head>
                 <title>Pacing Website</title>
                 <meta name="description" content="Calcuate Paces" />
+                <meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>                
             </Head>
             <NavBar page={page} onChange={setWide} />
             <div className="page-content">
@@ -18,4 +19,4 @@ export default function PageWrapper({ children, page }: { children: ReactNode, p
             <div className={`page-overlay ${wide ? '' : 'hidden'}`}></div>
         </div>
     );
-}
+} 

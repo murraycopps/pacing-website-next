@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import styles from '../styles/Dropdown.module.css'
 
 interface types {
-    items: { label: string, value: any }[],
+    items: { label?: string, value: any }[],
     className?: string,
     placeholder?: string,
     index?: number,
@@ -11,14 +11,22 @@ interface types {
     setValue?: (value: any) => void
 }
 
-export default function Dropdown({ items, className = '', placeholder = '', index = 0, value, setIndex = () => { }, setValue = () => { } }: types) {
-    if (index === 0 && value !== undefined) {
+export default function Dropdown({ items, className = '', placeholder = '', index = -1, value, setIndex = () => { }, setValue = () => { } }: types) {
+    if (index === -1 && value !== undefined) {
         setIndex(items.findIndex(item => item.value === value))
     }
 
+    items.forEach((item, i) => {
+        if (item.label === undefined) {
+            items[i].label = item.value
+        }
+        else {
+            items[i].label = item.label
+        }
+    })
+
     const [thisIndex, setThisIndex] = useState(index)
     const [open, setOpen] = useState(false)
-    const [showPlaceholder, setShowPlaceholder] = useState(true)
 
     const ref = useRef<HTMLDivElement>(null)
 
@@ -40,10 +48,12 @@ export default function Dropdown({ items, className = '', placeholder = '', inde
 
 
 
+
     return (
         <div ref={ref} className={`${styles.dropdown} ${className}`} onClick={() => setOpen(!open)}>
-            <div className={styles.dropdownButton}>
-                {items[thisIndex].label}
+            <div className={`${styles.dropdownButton} ${open ? styles.open : ''}`}>
+                {thisIndex === -1 ? placeholder : items[thisIndex].label}
+                <span className={styles.arrow} />
             </div>
             <div className={`${styles.dropdownContent} ${open ? '' : styles.hidden}`}>
                 {items.map((item, currentIndex) => {
