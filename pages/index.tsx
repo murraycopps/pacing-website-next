@@ -15,7 +15,7 @@ export default function Home() {
   }, [distance, time])
 
   return (
-    <PageWrapper page="home">
+    <PageWrapper page="pacing">
       <div className={styles.container}>
         <h1>Calculate Paces</h1>
         <p>Enter your distance and time to calculate your pace</p>

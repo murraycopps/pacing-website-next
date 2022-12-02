@@ -1,0 +1,92 @@
+.navbar {
+    width: 4rem;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-end;
+    background-color: white;
+    padding: 2rem 0;
+    color: black;
+    border-bottom: 1px solid black;
+    position: sticky;
+    border-bottom-right-radius: 20px;
+    border-top-right-radius: 20px;
+  }
+  
+  .navbar.wide {
+    width: 20rem;
+  }
+  
+  .navbarIcon {
+    width: 4rem;
+    height: 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    color: black;
+    border-radius: 50vh;
+    font-size: 2rem;
+    align-self: flex-end;
+  }
+  .navbarIcon.current{
+    right: -50%;
+    background: white;
+    border: 6px solid black;
+    box-sizing: content-box;
+    align-self: center;
+  }
+  .navbarIcon.current::before{
+    content: "";
+    position: absolute;
+    top: -22px;
+    right: 50%;
+    width: 20px;
+    height: 20px;
+    background-color: transparent;
+    border-bottom-right-radius: 20px;
+    box-shadow: 10px 0px 0 0 black;
+  }
+  .navbarIcon.current::after{
+    content: "";
+    position: absolute;
+    bottom: -22px;
+    right: 50%;
+    width: 20px;
+    height: 20px;
+    background-color: transparent;
+    border-top-right-radius: 20px;
+    box-shadow: 10px 0px 0 0 black;
+  }
+  .navbarText{
+    font-size: 2rem;
+    text-align: left;
+    position: absolute;
+    left: 1rem;
+  }
+  .navbarItem{
+    width: 100%;
+    height: 6rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .navbarItem:hover{
+    background-color: rgb(118, 118, 118);
+    color: white;
+  }
+  .navbarItem:hover .navbarIcon{
+    background-color: rgb(118, 118, 118);
+    color: white;
+  }
+  .navbarBorder{
+    margin: 1px;
+    width: calc(100% - 2rem);
+    margin-inline: 1rem;
+    height: 1px;
+    background-color: black;
+  }
