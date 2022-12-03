@@ -28,12 +28,36 @@ export default function Dropdown({ items, className = '', placeholder = '', inde
     const [open, setOpen] = useState(false)
 
     const ref = useRef<HTMLDivElement>(null)
-    const lastRef = useRef<HTMLDivElement>(null)
+    const buttonRef = useRef<HTMLDivElement>(null)
+    const contentWrapperRef = useRef<HTMLDivElement>(null)
+    const contentRefs = useRef<HTMLDivElement[]>([])
+
     useEffect(() => {
         const radius = getComputedStyle(ref.current!).borderRadius
-        lastRef.current!.style.borderBottomLeftRadius = radius
-        lastRef.current!.style.borderBottomRightRadius = radius
+        const border = getComputedStyle(ref.current!).border
+        const borderWidth = getComputedStyle(ref.current!).borderWidth
+
+        contentWrapperRef.current!.style.borderRadius = `0 0 ${radius} ${radius}`
+
+        contentRefs.current.length = items.length
+        contentRefs.current.forEach((contentRef, i) => {
+            contentRef.style.borderLeft = border
+            contentRef.style.borderRight = border
+            contentRef.style.width = `calc(100% + ${borderWidth} * 2)`
+            contentRef.style.left = `-${borderWidth}`
+            if(i === items.length - 1) {
+                contentRef.style.borderBottom = border
+            }
+        })
+        
     }, [ref.current])
+
+    useEffect(() => {
+        const border = getComputedStyle(ref.current!).border
+        buttonRef.current!.style.borderBottom = open? border : 'none'
+
+    }, [open])
+
 
     useEffect(() => {
         setIndex(thisIndex)
@@ -46,15 +70,14 @@ export default function Dropdown({ items, className = '', placeholder = '', inde
             className={`${styles.dropdown} ${className} ${open ? styles.open : ''}`}
             onClick={() => setOpen(!open)}
             ref={ref}>
-            <div className={styles.dropdownButton} >
+            <div ref={buttonRef} className={styles.dropdownButton} >
                 {thisIndex === -1 ? placeholder : items[thisIndex].label}
                 <span className={styles.arrow} />
             </div>
-            <div className={`${styles.dropdownContent} ${open ? '' : styles.hidden}`}>
+            <div ref={contentWrapperRef} className={`${styles.dropdownContent} ${open ? '' : styles.hidden}`}>
                 {items.map((item, currentIndex) => {
-                    const thisRef = currentIndex === items.length - 1 ? lastRef : undefined
                     return (
-                        <div key={item.value} ref={thisRef} className={styles.dropdownItem} onClick={() => {
+                        <div key={item.value} ref={(element) => contentRefs.current.push(element!)} className={styles.dropdownItem} onClick={() => {
                             setThisIndex(currentIndex)
                             setValue(item.value)
                         }}>

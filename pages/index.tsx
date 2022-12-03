@@ -34,7 +34,11 @@ export default function Home() {
     { value: 1500 },
     { label: 'Mile', value: 1609.34 },
     { label: '3k', value: 3000 },
-    { label: '2 Mile', value: 3218.68 }
+    { label: '2 Mile', value: 3218.68 },
+    { label: '5k', value: 5000 },
+    { label: '10k', value: 10000 },
+    { label: 'Half Marathon', value: 21097 },
+    { label: 'Marathon', value: 42195 },
   ]
 
   useEffect(() => {
@@ -56,12 +60,12 @@ export default function Home() {
       <div className="content-box">
         <div className="input-box">
             <Dropdown items={inputDistances} placeholder='Distance' setValue={setDistance} className="input-box-content" />
+            <TimeInput value={time} onChange={setTime} className="input-box-content" />
           <div className={`switch ${isPace ? 'pace' : 'split'}`} onClick={() => setIsPace(!isPace)}>
             {isPace ? 'Pace' : 'Split'}
             <span className='switch-item'></span>
           </div>
 
-            <TimeInput value={time} onChange={setTime} className="input-box-content" />
         </div>
         <div className='output'>
           {output.join('\n')}
