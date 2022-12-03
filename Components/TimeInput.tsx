@@ -8,9 +8,9 @@ export default function TimeInput({ value, onChange, className = "" }: { value: 
     }, [min, sec])
     return (
         <div className={`${className} ${styles.timeInputField}`}>
-            <input type="number" name="min" id="min" className={styles.timeInput} defaultValue={min} onChange={(event) => { if (event.target.value != "") setMin(parseFloat(event.target.value)) }} />
+            <input type="number" placeholder="min" name="min" id="min" className={styles.timeInput} defaultValue={min ? min: ""} onChange={(event) => { if (event.target.value != "") setMin(parseFloat(event.target.value)); else setMin(0)}} />
             <span className={styles.timeInputSeparator}>:</span>
-            <input type="number" name="sec" id="sec" className={styles.timeInput} defaultValue={sec} onChange={(event) => { if (event.target.value != "") setSec(parseFloat(event.target.value)) }} />
+            <input type="number" placeholder="sec" name="sec" id="sec" className={styles.timeInput} defaultValue={sec ? sec: ""} onChange={(event) => { if (event.target.value != "") setSec(parseFloat(event.target.value)); else setSec(0) }} />
         </div>
     )
 }

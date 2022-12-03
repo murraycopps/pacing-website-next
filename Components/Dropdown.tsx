@@ -45,16 +45,16 @@ export default function Dropdown({ items, className = '', placeholder = '', inde
             contentRef.style.borderRight = border
             contentRef.style.width = `calc(100% + ${borderWidth} * 2)`
             contentRef.style.left = `-${borderWidth}`
-            if(i === items.length - 1) {
+            if (i === items.length - 1) {
                 contentRef.style.borderBottom = border
             }
         })
-        
+
     }, [ref.current])
 
     useEffect(() => {
         const border = getComputedStyle(ref.current!).border
-        buttonRef.current!.style.borderBottom = open? border : 'none'
+        buttonRef.current!.style.borderBottom = open ? border : 'none'
 
     }, [open])
 
@@ -66,6 +66,7 @@ export default function Dropdown({ items, className = '', placeholder = '', inde
 
     return (
         <div
+            tabIndex={0}
             onBlur={() => setOpen(false)}
             className={`${styles.dropdown} ${className} ${open ? styles.open : ''}`}
             onClick={() => setOpen(!open)}
