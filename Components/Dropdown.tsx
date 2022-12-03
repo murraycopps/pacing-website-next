@@ -15,7 +15,6 @@ export default function Dropdown({ items, className = '', placeholder = '', inde
     if (index === -1 && value !== undefined) {
         setIndex(items.findIndex(item => item.value === value))
     }
-
     items.forEach((item, i) => {
         if (item.label === undefined) {
             items[i].label = item.value
@@ -29,36 +28,33 @@ export default function Dropdown({ items, className = '', placeholder = '', inde
     const [open, setOpen] = useState(false)
 
     const ref = useRef<HTMLDivElement>(null)
+    const lastRef = useRef<HTMLDivElement>(null)
+    useEffect(() => {
+        const radius = getComputedStyle(ref.current!).borderRadius
+        lastRef.current!.style.borderBottomLeftRadius = radius
+        lastRef.current!.style.borderBottomRightRadius = radius
+    }, [ref.current])
 
     useEffect(() => {
         setIndex(thisIndex)
     }, [thisIndex])
 
-    useEffect(() => {
-        const handleClickOutside = (event: { target: any }) => {
-            if (ref.current && !ref.current.contains(event.target)) {
-                setOpen(false)
-            }
-        };
-        document.addEventListener('click', handleClickOutside, true);
-        return () => {
-            document.removeEventListener('click', handleClickOutside, true);
-        };
-    }, []);
-
-
-
 
     return (
-        <div ref={ref} className={`${styles.dropdown} ${className}`} onClick={() => setOpen(!open)}>
-            <div className={`${styles.dropdownButton} ${open ? styles.open : ''}`}>
+        <div
+            onBlur={() => setOpen(false)}
+            className={`${styles.dropdown} ${className} ${open ? styles.open : ''}`}
+            onClick={() => setOpen(!open)}
+            ref={ref}>
+            <div className={styles.dropdownButton} >
                 {thisIndex === -1 ? placeholder : items[thisIndex].label}
                 <span className={styles.arrow} />
             </div>
             <div className={`${styles.dropdownContent} ${open ? '' : styles.hidden}`}>
                 {items.map((item, currentIndex) => {
+                    const thisRef = currentIndex === items.length - 1 ? lastRef : undefined
                     return (
-                        <div key={item.value} className={styles.dropdownItem} onClick={() => {
+                        <div key={item.value} ref={thisRef} className={styles.dropdownItem} onClick={() => {
                             setThisIndex(currentIndex)
                             setValue(item.value)
                         }}>

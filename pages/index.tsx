@@ -18,8 +18,9 @@ export default function Home() {
     400,
     800,
     1500,
-    1609,
+    1609.34,
     3000,
+    3218.38,
     5000,
     10000,
     21097,
@@ -27,36 +28,44 @@ export default function Home() {
   ]
 
   const inputDistances = [
-    {value: 200},
-    {value: 400},
-    {value: 800},
-    {value: 1500},
-    {label: 'Mile', value: 1609.3},
-    {label: '3k',value: 3000},
-    {label: '2 Mile', value: 3218.6}
+    { value: 200 },
+    { value: 400 },
+    { value: 800 },
+    { value: 1500 },
+    { label: 'Mile', value: 1609.34 },
+    { label: '3k', value: 3000 },
+    { label: '2 Mile', value: 3218.68 }
   ]
 
   useEffect(() => {
     if (distance == 0 || time == 0) setOutput([])
     else {
-      const filteredList = outputDistances.filter
-      setOutput(outputDistances.map((dist) => {
-        return `${dist}: ${Math.floor((time / distance) * dist)}`
+      const filteredList = outputDistances.filter((item) => item <= distance)
+      setOutput(filteredList.map((dist) => {
+        return `${Math.floor(dist)}: ${Math.floor((time / distance) * 100 * dist) / 100}`
       }))
     }
 
   }, [distance, time])
 
   return (
-    <PageWrapper page="pacing">
-      <h1>Calculate Paces</h1>
-      <p>Enter your distance and time to calculate your pace</p>
-      <div className="calc-container">
-        <TimeInput value={time} onChange={setTime} className="half" />
-        <Dropdown items={inputDistances} placeholder='Distance' setValue={setDistance} className="half" />
+    <PageWrapper page="pacing" className={'pacing-page'}>
+      <div className="title-box">
+        <h1 className='title'>Calculate {isPace ? 'Paces' : 'Splits'}</h1>
       </div>
-      <div className='output'>
-        {output.join('\n')}
+      <div className="content-box">
+        <div className="input-box">
+            <Dropdown items={inputDistances} placeholder='Distance' setValue={setDistance} className="input-box-content" />
+          <div className={`switch ${isPace ? 'pace' : 'split'}`} onClick={() => setIsPace(!isPace)}>
+            {isPace ? 'Pace' : 'Split'}
+            <span className='switch-item'></span>
+          </div>
+
+            <TimeInput value={time} onChange={setTime} className="input-box-content" />
+        </div>
+        <div className='output'>
+          {output.join('\n')}
+        </div>
       </div>
     </PageWrapper>
   )
