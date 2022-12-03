@@ -1,15 +1,20 @@
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHome, faRunning, faStopwatch, faUser } from '@fortawesome/free-solid-svg-icons'
 import NavBarElement from './NavBarElement'
 import styles from '../styles/NavBar.module.css'
 export default function NavBar({ page, onChange }: { page: string, onChange: (wide: boolean) => void }) {
-    const [wide, setWide] = useState(false)
+    const [wide, setWide] = useState(true)
+    const [dropdownOpen, setDropdownOpen] = useState(false)
+
+       
+
 
     useEffect(() => {
         onChange(wide)
     }, [wide])
+
     return (
         <div
             className={`${styles.navbar} ${wide ? styles.wide : styles.thin}`}
@@ -18,10 +23,22 @@ export default function NavBar({ page, onChange }: { page: string, onChange: (wi
         >
 
             <span className={styles.navbarBorder} />
-            <NavBarElement wide={wide} icon={faHome} link="/" text="Pacing" current={page === 'pacing'} />
+            <NavBarElement wide={wide} icon={faHome} link="/" text='Pacing' current={page === 'pacing'} />
             <span className={styles.navbarBorder} />
-            <NavBarElement wide={wide} icon={faRunning} link="/vdot" text="VDOT" current={page === 'vdot'} />
+            <NavBarElement wide={wide} icon={faRunning} link="/vdot" text='VDOT' current={page === 'vdot'} />
             <span className={styles.navbarBorder} />
+            <div className={styles.section} onMouseLeave={()=>{setDropdownOpen(false)}}>
+                <NavBarElement wide={wide} focused={dropdownOpen} dropdown={true} icon={'track'} link="" text='XCTF-Pages' current={page === 'scoring'} open={dropdownOpen} onClick={() => setDropdownOpen(!dropdownOpen)} />
+                {(dropdownOpen && wide) ?
+                    <div className={styles.dropdown}>
+                        <span className={styles.navbarBorder} />
+                        <NavBarElement wide={wide} link="/XCTF-Pages/scoring" text='Scoring' current={page === 'scoring'} className={styles.navbarDropdownContent}/>
+                        <span className={styles.navbarBorder} />
+                    </div>
+                    : null}
+            </div>
+            <span className={styles.navbarBorder} />
+
         </div>
     )
 }

@@ -1,0 +1,7 @@
+.trackIcon{
+    width: 1.3em;
+    height: .9em;
+    background-color: transparent;
+    border-radius: 50em;
+    box-shadow: 0 0 0 0.3em var(--color) inset;
+}
