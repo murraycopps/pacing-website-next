@@ -1,11 +1,10 @@
-import Link from 'next/link'
 import { useEffect, useRef, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHome, faRunning, faStopwatch, faUser } from '@fortawesome/free-solid-svg-icons'
 import NavBarElement from './NavBarElement'
 import styles from '../styles/NavBar.module.css'
 export default function NavBar({ page, onChange }: { page: string, onChange: (wide: boolean) => void }) {
-    const [wide, setWide] = useState(true)
+    const [wide, setWide] = useState(false)
     const [dropdownOpen, setDropdownOpen] = useState(false)
 
        
