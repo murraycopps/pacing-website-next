@@ -63,6 +63,11 @@ export default function Dropdown({ items, className = '', placeholder = '', inde
         setIndex(thisIndex)
     }, [thisIndex])
 
+    useEffect(() => {
+        if(value)
+        setThisIndex(items.findIndex(item => item.value === value))
+    }, [value])
+
 
     return (
         <div

@@ -20,9 +20,9 @@ export default function Scoring() {
     const inputRefs = Array(10).fill(0).map((_, i) => React.createRef<HTMLInputElement>())
 
     const eventOptions = [
-        { label: 'Indoor', value: 10 },
-        { label: 'Outdoor', value: 16 },
-        { label: "Professional", value: 21 },
+        { label: 'Indoor - 10 Events', value: 10 },
+        { label: 'Outdoor - 16 Events', value: 16 },
+        { label: "Professional - 21 Events", value: 21 },
         { label: "Custom", value: 0 }
     ]
 
@@ -62,7 +62,7 @@ export default function Scoring() {
 
                     {isTrack ?
                         <>
-                            <div className={`${styles["input-box-content"]}`} style={{ height: '6rem', padding: 0 }}>
+                            <div className={`${styles["input-box-content"]}`} style={{ height: '6rem', padding: 0, border: 'none' }}>
                                 <Dropdown className={styles.dropdown} placeholder="Enter Number of Events" index={index} setIndex={setIndex} items={eventOptions} setValue={(value: number) => { setNumEvents(value); setCustom(value === 0) }} />
                                 {custom ? <div className={styles.overlay}>
                                     <input type="number" placeholder="Custom Distance" className='input custom' defaultValue={numEvents} onChange={(e) => setNumEvents(parseFloat(e.target.value ? e.target.value : '0'))} />

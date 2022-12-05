@@ -26,6 +26,8 @@ export default function NavBar({ page, onChange }: { page: string, onChange: (wi
             <span className={styles.navbarBorder} />
             <NavBarElement wide={wide} icon={faRunning} link="/vdot" text='VDOT' current={page === 'vdot'} />
             <span className={styles.navbarBorder} />
+            <NavBarElement wide={wide} icon={faStopwatch} link="/convert" text='Convert' current={page === 'convert'} />
+            <span className={styles.navbarBorder} />
             <div className={styles.section} onMouseLeave={()=>{setDropdownOpen(false)}}>
                 <NavBarElement wide={wide} focused={dropdownOpen} dropdown={true} icon={'track'} link="" text='XCTF-Pages' current={page === 'scoring'} open={dropdownOpen} onClick={() => setDropdownOpen(!dropdownOpen)} />
                 {(dropdownOpen && wide) ?
