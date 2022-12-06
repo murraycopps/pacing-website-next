@@ -31,11 +31,13 @@ export default function NavBar({ page, onChange }: { page: string, onChange: (wi
             <NavBarElement wide={wide} icon={faCalculator} link="/unusual" text='Unusual' current={page === 'unusual'} />
             <span className={styles.navbarBorder} />
             <div className={styles.section} onMouseLeave={()=>{setDropdownOpen(false)}}>
-                <NavBarElement wide={wide} focused={dropdownOpen} dropdown={true} icon={'track'} link="" text='XCTF-Pages' current={page === 'scoring'} open={dropdownOpen} onClick={() => setDropdownOpen(!dropdownOpen)} />
+                <NavBarElement wide={wide} focused={dropdownOpen} dropdown={true} icon={'track'} link="" text='XCTF-Pages' current={page === 'scoring' || page === 'relay'} open={dropdownOpen} onClick={() => setDropdownOpen(!dropdownOpen)} />
                 {(dropdownOpen && wide) ?
                     <div className={styles.dropdown}>
                         <span className={styles.navbarBorder} />
                         <NavBarElement wide={wide} link="/XCTF-Pages/scoring" text='Scoring' current={page === 'scoring'} className={styles.navbarDropdownContent}/>
+                        <span className={styles.navbarBorder} />
+                        <NavBarElement wide={wide} link="/XCTF-Pages/relay" text='Relay' current={page === 'relay'} className={styles.navbarDropdownContent}/>
                         <span className={styles.navbarBorder} />
                     </div>
                     : null}
