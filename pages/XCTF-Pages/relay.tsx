@@ -10,7 +10,6 @@ export default function Home() {
     const [numTimes, setNumTimes] = useState(4)
 
     useEffect(() => {
-        console.log('reduce', times.reduce((a, b) => a + b, 0), times)
         setOutput(outTime(times.reduce((a, b) => a + b, 0)))
     }, [times])
 

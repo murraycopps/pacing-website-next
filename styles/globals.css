@@ -22,6 +22,7 @@ a {
 
 * {
   box-sizing: border-box;
+  text-size-adjust: auto;
 }
 
 .calc-container {
