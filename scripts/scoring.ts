@@ -22,7 +22,6 @@ export function getXCScores(list: any) {
     if(list.includes(0)) {
         const otherPlaces = getOtherPlaces(list)
         const myPlaces = getOtherPlaces(otherPlaces)
-        console.log(myPlaces)
         const myScore = myPlaces.reduce((a: number, b: number, i: number) => i >= 5? a : a + b, 0)
         const otherScore = otherPlaces.reduce((a: number, b: number, i: number) => i >= 5? a : a + b, 0)
         const out = `Your Score is: ${myScore} \nOther Score is: ${otherScore}`
