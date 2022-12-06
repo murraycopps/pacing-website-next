@@ -6,7 +6,7 @@ export default function TimeInput({ value, onChange, className = "" }: { value: 
     const [sec, setSec] = useState(value % 60)
     useEffect(() => {
         onChange(hour * 3600 + min * 60 + sec)
-    }, [hour, min, sec])
+    }, [hour, min, sec, onChange])
     return (
         <div className={`${className} ${styles.timeInputField}`}>
             <input type="number" placeholder="Hour" name="hour" id="hour" className={styles.timeInput} defaultValue={hour ? hour : ""} onChange={(event) => { if (event.target.value != "") setHour(parseFloat(event.target.value)); else setHour(0) }} />

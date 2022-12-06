@@ -40,7 +40,7 @@ export default function Scoring() {
         inputRefs.forEach((ref: any) => {
             if(ref.current) ref.current.value = ''
         })
-    }, [isTrack])
+    }, [isTrack, inputRefs])
 
     useEffect(() => {
         if (isTrack) {

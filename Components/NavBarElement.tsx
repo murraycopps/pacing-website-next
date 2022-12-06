@@ -30,18 +30,18 @@ export default function NavBarElement({ wide = false, icon, link, text, current 
         setIsFocused(false)
         setHovered(false)
         ref.current!.blur()
-    }, [wide])
+    }, [wide, ref])
 
     useEffect(() => {
         if (!focused) {
             ref.current!.blur()
         }
-    }, [focused])
+    }, [focused, ref])
 
     useEffect(() => {
         if (!arrowRef.current) return
         arrowRef.current.style.setProperty('--color', (isFocused || hovered) ? 'white' : 'black')
-    }, [arrowRef.current, isFocused, hovered])
+    }, [arrowRef, isFocused, hovered])
 
     return (
         <Link

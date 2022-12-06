@@ -78,7 +78,7 @@ export default function VDOT() {
             })
             setOutput(outputs)
         }
-    }, [vdot])
+    }, [vdot, isRace, isPace])
 
 
     return (

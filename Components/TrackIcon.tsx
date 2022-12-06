@@ -4,7 +4,7 @@ export default function TrackIcon({color = 'black', className = ''}: {color?: st
     const ref = useRef<HTMLDivElement>(null)
     useEffect(() => {
         ref.current!.style.setProperty('--color', color)
-    }, [ref.current, color])
+    }, [ref, color])
     return (
         <div ref={ref} className={styles.trackIcon}></div>
     );

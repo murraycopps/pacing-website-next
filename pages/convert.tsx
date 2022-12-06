@@ -63,7 +63,7 @@ export default function Home() {
                     if (i < 4) {
                         const time = speedToTime(speed, o.value)
                         if (typeof time === 'string') return o.label + ': ' + time
-                        else return o.label + ': ' + time  
+                        else return o.label + ': ' + time
                     }
                     if (o.value === disType) return ''
                     if (o.value !== 1) return o.label + ': ' + Math.round(speed * disType / o.value * 3600 * 10) / 10
@@ -95,7 +95,7 @@ export default function Home() {
             }
         }
 
-    }, [disType, distance, time, speed])
+    }, [disType, distance, time, speed, isTime])
 
     return (
         <PageWrapper page="convert" className={'pacing-page'}>

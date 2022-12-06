@@ -50,23 +50,23 @@ export default function Dropdown({ items, className = '', placeholder = '', inde
             }
         })
 
-    }, [ref.current])
+    }, [ref, contentWrapperRef, contentRefs, items])
 
     useEffect(() => {
         const border = getComputedStyle(ref.current!).border
         buttonRef.current!.style.borderBottom = open ? border : 'none'
 
-    }, [open])
+    }, [open, ref, buttonRef])
 
 
     useEffect(() => {
         setIndex(thisIndex)
-    }, [thisIndex])
+    }, [thisIndex, setIndex])
 
     useEffect(() => {
         if(value)
         setThisIndex(items.findIndex(item => item.value === value))
-    }, [value])
+    }, [value, items])
 
 
     return (

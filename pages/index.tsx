@@ -16,28 +16,7 @@ export default function Home() {
   const [custom, setCustom] = useState(0)
   const [isCustomOpen, setIsCustomOpen] = useState(false)
 
-  const outputDistances = [
-    { value: 100, max: 3218.69, min: 0 },
-    { value: 200, max: 5000, min: 0 },
-    { value: 400, max: 10000, min: 0 },
-    { value: 600, max: 4000, min: 0 },
-    { value: 800, max: 20000, min: 0 },
-    { value: 1000, max: 10000, min: 0 },
-    { value: 1200, max: 3218.69, min: 1200 },
-    { value: 1500, max: 40000, min: 0 },
-    { value: 1600, max: 1609.34, min: 1600 },
-    { value: 1609.34, max: 50000, min: 0 },
-    { value: 2000, max: 3218.69, min: 2000 },
-    { value: 2400, max: 3218.69, min: 2400 },
-    { value: 2800, max: 3218.69, min: 2800 },
-    { value: 3000, max: 50000, min: 200 },
-    { value: 3218.69, max: 50000, min: 200 },
-    { value: 5000, max: 50000, min: 400 },
-    { value: 10000, max: 50000, min: 1500 },
-    { value: 21097.5, max: 50000, min: 5000 },
-    { value: 42195, max: 50000, min: 5000 },
-  ]
-
+  
   const inputDistances = [
     { value: 200 },
     { value: 400 },
@@ -54,6 +33,28 @@ export default function Home() {
   ]
 
   useEffect(() => {
+    const outputDistances = [
+      { value: 100, max: 3218.69, min: 0 },
+      { value: 200, max: 5000, min: 0 },
+      { value: 400, max: 10000, min: 0 },
+      { value: 600, max: 4000, min: 0 },
+      { value: 800, max: 20000, min: 0 },
+      { value: 1000, max: 10000, min: 0 },
+      { value: 1200, max: 3218.69, min: 1200 },
+      { value: 1500, max: 40000, min: 0 },
+      { value: 1600, max: 1609.34, min: 1600 },
+      { value: 1609.34, max: 50000, min: 0 },
+      { value: 2000, max: 3218.69, min: 2000 },
+      { value: 2400, max: 3218.69, min: 2400 },
+      { value: 2800, max: 3218.69, min: 2800 },
+      { value: 3000, max: 50000, min: 200 },
+      { value: 3218.69, max: 50000, min: 200 },
+      { value: 5000, max: 50000, min: 400 },
+      { value: 10000, max: 50000, min: 1500 },
+      { value: 21097.5, max: 50000, min: 5000 },
+      { value: 42195, max: 50000, min: 5000 },
+    ]
+  
     if (distance === -1) {
       setIsCustomOpen(true)
     } 
