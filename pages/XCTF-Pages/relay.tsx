@@ -10,8 +10,16 @@ export default function Home() {
     const [numTimes, setNumTimes] = useState(4)
 
     useEffect(() => {
+        console.log('reduce', times.reduce((a, b) => a + b, 0), times)
         setOutput(outTime(times.reduce((a, b) => a + b, 0)))
     }, [times])
+
+    const insertAtIndex = (value: any, index: number) => {
+        if (value === '') value = 0
+        const newArray = [...times];
+        newArray[index] = parseFloat(value);
+        setTimes(newArray);
+    }
 
     return (
         <PageWrapper page="relay" className={'pacing-page'}>
@@ -21,7 +29,7 @@ export default function Home() {
             <div className="content-box">
                 <div className="input-box">
                     {times.map((time, index) => {
-                        return <TimeInput key={index} value={time} onChange={(value: number) => { setTimes((oldValue) => { oldValue[index] = value; return oldValue }) }} className='input-box-content grow' />
+                        return <TimeInput key={index} value={time} onChange={(value: number) => {insertAtIndex(value, index)}} className='input-box-content grow' />
                     })}
                     <div className="input-box-content button-field">
                         <button className='button' onClick={() => { setTimes((oldValue) => [...oldValue, 0]); setNumTimes((oldValue) => oldValue + 1) }}>Add Time</button>

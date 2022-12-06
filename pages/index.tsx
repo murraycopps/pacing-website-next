@@ -93,7 +93,6 @@ export default function Home() {
         if (add) counter++
         return add && counter > 11
       })
-      console.log(filteredList, secondList)
       setOutput(filteredList.map((dist) => {
         return `${Math.floor(dist.value)}: ${outTime((time / distance) * dist.value)}`
       }))
