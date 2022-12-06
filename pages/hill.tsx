@@ -32,6 +32,7 @@ export default function Home() {
             </div>
             <div className="content-box">
                 <div className="input-box">
+                    <div className='input-box-content'> {isPrediction ? 'Time on Hill' : 'Time on Flat'} </div>
                     <TimeInput value={time} onChange={setTime} className='input-box-content' />
                     <input type="number" placeholder='Elevation Change' onChange={(e) => { if (e.target.value !== '') setElevation(parseFloat(e.target.value)); else setElevation(0) }} className='input-box-content input' />
                     <div className={`switch ${isPrediction ? 'left' : 'right'}`} onClick={() => setIsPrediction(!isPrediction)}>
@@ -42,7 +43,7 @@ export default function Home() {
                 </div>
                 <div className='output'>
                     <div className="output-text">
-                        {output}
+                    {isPrediction ? 'Time on Flat' : 'Time on Hill'}: {output}
                     </div>
                 </div>
             </div>

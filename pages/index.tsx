@@ -116,11 +116,11 @@ export default function Home() {
       <div className="content-box">
         <div className="input-box">
           <div className="input-box-content no-border" >
-            <Dropdown items={inputDistances} placeholder='Distance' setValue={setDistance} className="input-box-content" />
+            <Dropdown value={distance} items={inputDistances} placeholder='Distance' setValue={setDistance} className="input-box-content" />
             {isCustomOpen &&
               <div className="input-box-content overlay">
-                <input type="number" placeholder="Custom Distance" className='input custom' defaultValue={custom} onChange={(e) => setCustom(parseFloat(e.target.value))} />
-                <FontAwesomeIcon icon={faBan} className='icon' onClick={() => setIsCustomOpen(false)} />
+                <input type="number" placeholder="Custom Distance" className='input custom' onChange={(e) => setCustom(parseFloat(e.target.value))} />
+                <FontAwesomeIcon icon={faBan} className='icon' onClick={() => {setIsCustomOpen(false); setCustom(0); setDistance(0)}} />
               </div>
             }
           </div>
