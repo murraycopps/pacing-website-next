@@ -36,7 +36,7 @@ export default function Home() {
                     <div className="input-box-content button-field">
                         <button className='button' onClick={() => { setOutputDistances((oldValue) => [...oldValue, 0]); if (outputDistanceRef.current) outputDistanceRef.current.value = '' }}>Add Distance</button>
                         <button className='button' onClick={() => { if (outputDistances.length !== 1) { setOutputDistances((oldValue) => [...oldValue.slice(0, -1)]); if (outputDistanceRef.current) outputDistanceRef.current.value = outputDistances[outputDistances.length - 2].toString() } }}>Remove Distance</button>
-                        <button className='button' onClick={() => setOutputDistances([0])}>Clear</button>
+                        <button className='button' onClick={() => {setOutputDistances([0]); outputDistanceRef.current!.value=''}}>Clear</button>
 
                     </div>
                 </div>
