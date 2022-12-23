@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHome, faRunning, faStopwatch, faUser } from '@fortawesome/free-solid-svg-icons'
 import styles from '../styles/NavBar.module.css'
 import TrackIcon from './TrackIcon'
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 
 interface NavBarElementProps {
     wide: boolean,
@@ -25,6 +25,10 @@ export default function NavBarElement({ wide = false, icon, link, text, current 
     const [isFocused, setIsFocused] = useState(focused)
     const ref = useRef<HTMLAnchorElement>(null)
     const arrowRef = useRef<HTMLDivElement>(null)
+
+    const isBreakpoint = useMediaQuery(768);
+
+
     useEffect(() => {
         if (wide) return
         setIsFocused(false)
@@ -41,6 +45,9 @@ export default function NavBarElement({ wide = false, icon, link, text, current 
     useEffect(() => {
         if (!arrowRef.current) return
         arrowRef.current.style.setProperty('--color', (isFocused || hovered) ? 'white' : 'black')
+        if(!isBreakpoint){
+            arrowRef.current.style.setProperty('--color', 'black')
+        }
     }, [arrowRef, isFocused, hovered])
 
     return (
@@ -68,3 +75,29 @@ export default function NavBarElement({ wide = false, icon, link, text, current 
         </Link>
     )
 }
+
+const useMediaQuery = (width: any) => {
+    const [targetReached, setTargetReached] = useState(false);
+
+    const updateTarget = useCallback((e: { matches: any; }) => {
+        if (e.matches) {
+            setTargetReached(true);
+        } else {
+            setTargetReached(false);
+        }
+    }, []);
+
+    useEffect(() => {
+        const media = window.matchMedia(`(max-width: ${width}px)`);
+        media.addListener(updateTarget);
+
+        // Check on mount (callback is not called until a change occurs)
+        if (media.matches) {
+            setTargetReached(true);
+        }
+
+        return () => media.removeListener(updateTarget);
+    }, [updateTarget, width]);
+
+    return targetReached;
+};

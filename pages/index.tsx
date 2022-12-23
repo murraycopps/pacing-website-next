@@ -73,8 +73,8 @@ export default function Home() {
       })
 
 
-      setOutput(filteredList.map((dist, index) => {
-        return index < 11 ? `${Math.floor(dist.value)}: ${outTime((time / distance) * dist.value)}` : ''
+      setOutput(filteredList.filter((item, index) => index < 11).map((dist, index) => {
+        return `${Math.floor(dist.value)}: ${outTime((time / distance) * dist.value)}`
       }))
       setSecondOutput(secondList.map((dist, index) => {
         return `${Math.floor(dist.value)}: ${outTime((time / distance) * dist.value)}`

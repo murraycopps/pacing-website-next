@@ -1,11 +1,11 @@
-import { useEffect, useRef, useState } from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { faCalculator, faHome, faMountain, faRunning, faStopwatch, faUser } from '@fortawesome/free-solid-svg-icons'
 import NavBarElement from './NavBarElement'
 import styles from '../styles/NavBar.module.css'
 export default function NavBar({ page, onChange }: { page: string, onChange: (wide: boolean) => void }) {
     const [wide, setWide] = useState(false)
     const [dropdownOpen, setDropdownOpen] = useState(false)
+    const isBreakpoint = useMediaQuery(768);
 
        
 
@@ -17,7 +17,7 @@ export default function NavBar({ page, onChange }: { page: string, onChange: (wi
     return (
         <div
             className={`${styles.navbar} ${wide ? styles.wide : styles.thin}`}
-            onMouseEnter={() => setWide(true)}
+            onMouseEnter={() => {if(!isBreakpoint) setWide(true)}}
             onMouseLeave={() => setWide(false)}
         >
 
@@ -27,7 +27,7 @@ export default function NavBar({ page, onChange }: { page: string, onChange: (wi
             <NavBarElement wide={wide} icon={faRunning} link="/vdot" text='VDOT' current={page === 'vdot'} />
             <span className={styles.navbarBorder} />
             <div className={styles.section} onMouseLeave={()=>{setDropdownOpen(false)}}>
-                <NavBarElement wide={wide} focused={dropdownOpen} dropdown={true} icon={'track'} link="" text='XCTF-Pages' current={page === 'scoring' || page === 'relay'} open={dropdownOpen} onClick={() => setDropdownOpen(!dropdownOpen)} />
+                <NavBarElement wide={wide} focused={dropdownOpen} dropdown={true} icon={'track'} link="" text='XCTF-Pages' current={page === 'scoring' || page === 'relay'} open={dropdownOpen} onClick={() => {setDropdownOpen(!dropdownOpen); if(isBreakpoint) setWide(!wide)}} />
                 {(dropdownOpen && wide) ?
                     <div className={styles.dropdown}>
                         <span className={styles.navbarBorder} />
@@ -49,3 +49,29 @@ export default function NavBar({ page, onChange }: { page: string, onChange: (wi
         </div>
     )
 }
+
+const useMediaQuery = (width: any) => {
+    const [targetReached, setTargetReached] = useState(false);
+
+    const updateTarget = useCallback((e: { matches: any; }) => {
+        if (e.matches) {
+            setTargetReached(true);
+        } else {
+            setTargetReached(false);
+        }
+    }, []);
+
+    useEffect(() => {
+        const media = window.matchMedia(`(max-width: ${width}px)`);
+        media.addListener(updateTarget);
+
+        // Check on mount (callback is not called until a change occurs)
+        if (media.matches) {
+            setTargetReached(true);
+        }
+
+        return () => media.removeListener(updateTarget);
+    }, [updateTarget, width]);
+
+    return targetReached;
+};

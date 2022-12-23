@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import PageWrapper from "../../Components/PageWrapper";
 import styles from '../../styles/Scoring.module.css'
 import { getXCScores, getTrackScores } from "../../scripts/scoring";
@@ -16,6 +16,8 @@ export default function Scoring() {
     const [numEvents, setNumEvents] = useState(0)
     const [custom, setCustom] = useState(false)
     const [index, setIndex] = useState(-1)
+
+    const isBreakpoint = useMediaQuery(768);
 
     const inputRefs = Array(10).fill(0).map((_, i) => React.createRef<HTMLInputElement>())
 
@@ -58,7 +60,7 @@ export default function Scoring() {
                 <h1 className='title'>Calculate {isTrack ? 'Track' : 'XC'} Scores</h1>
             </div>
             <div className="content-box">
-                <div className="input-box">
+                <div className={`input-box ${styles["input-box"]}`}>
 
                     {isTrack ?
                         <>
@@ -88,37 +90,37 @@ export default function Scoring() {
                         </>
                         : <>
                             <div className={styles["input-box-content"]}>
-                                <label htmlFor="1st">First Place: </label>
+                                <label htmlFor="1st">First{!isBreakpoint ? " Place": ""}: </label>
                                 <input ref={inputRefs[3]} type="number" placeholder="1st Place" name="1st" id="1st" className={styles["input"]} onChange={(event) => insertAtIndex(event.target.value, 0)} />
                             </div>
 
                             <div className={styles["input-box-content"]}>
-                                <label htmlFor="2nd">Second Place: </label>
+                                <label htmlFor="2nd">Second: </label>
                                 <input ref={inputRefs[4]} type="number" placeholder="2nd Place" name="2nd" id="2nd" className={styles["input"]} onChange={(event) => insertAtIndex(event.target.value, 1)} />
                             </div>
 
                             <div className={styles["input-box-content"]}>
-                                <label htmlFor="3rd">Third Place: </label>
+                                <label htmlFor="3rd">Third: </label>
                                 <input ref={inputRefs[5]} type="number" placeholder="3rd Place" name="3rd" id="3rd" className={styles["input"]} onChange={(event) => insertAtIndex(event.target.value, 2)} />
                             </div>
 
                             <div className={styles["input-box-content"]}>
-                                <label htmlFor="4th">Fourth Place: </label>
+                                <label htmlFor="4th">Fourth: </label>
                                 <input ref={inputRefs[6]} type="number" placeholder="4th Place" name="4th" id="4th" className={styles["input"]} onChange={(event) => insertAtIndex(event.target.value, 3)} />
                             </div>
 
                             <div className={styles["input-box-content"]}>
-                                <label htmlFor="5th">Fifth Place: </label>
+                                <label htmlFor="5th">Fifth: </label>
                                 <input ref={inputRefs[7]} type="number" placeholder="5th Place" name="5th" id="5th" className={styles["input"]} onChange={(event) => insertAtIndex(event.target.value, 4)} />
                             </div>
 
                             <div className={styles["input-box-content"]}>
-                                <label htmlFor="6th">Sixth Place: </label>
+                                <label htmlFor="6th">Sixth: </label>
                                 <input ref={inputRefs[8]} type="number" placeholder="6th Place" name="6th" id="6th" className={styles["input"]} onChange={(event) => insertAtIndex(event.target.value, 5)} />
                             </div>
 
                             <div className={styles["input-box-content"]}>
-                                <label htmlFor="7th">Seventh Place: </label>
+                                <label htmlFor="7th">Seventh: </label>
                                 <input ref={inputRefs[9]} type="number" placeholder="7th Place" name="7th" id="7th" className={styles["input"]} onChange={(event) => insertAtIndex(event.target.value, 6)} />
                             </div>
                         </>}
@@ -140,3 +142,29 @@ export default function Scoring() {
         </PageWrapper >
     );
 }
+
+const useMediaQuery = (width: any) => {
+    const [targetReached, setTargetReached] = useState(false);
+
+    const updateTarget = useCallback((e: { matches: any; }) => {
+        if (e.matches) {
+            setTargetReached(true);
+        } else {
+            setTargetReached(false);
+        }
+    }, []);
+
+    useEffect(() => {
+        const media = window.matchMedia(`(max-width: ${width}px)`);
+        media.addListener(updateTarget);
+
+        // Check on mount (callback is not called until a change occurs)
+        if (media.matches) {
+            setTargetReached(true);
+        }
+
+        return () => media.removeListener(updateTarget);
+    }, [updateTarget, width]);
+
+    return targetReached;
+};
