@@ -196,7 +196,7 @@
     border-right: none;
     border-bottom-right-radius: 0;
     border-top-right-radius: 0;
-    /* border-bottom: 12px solid black; */
+    border-bottom: 12px solid black;
     position: fixed;
   }
 
