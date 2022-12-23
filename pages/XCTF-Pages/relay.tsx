@@ -26,9 +26,9 @@ export default function Home() {
                 <h1 className='title'>Add Times for Relay</h1>
             </div>
             <div className="content-box">
-                <div className="input-box">
+                <div className="input-box sm-80">
                     {times.map((time, index) => {
-                        return <TimeInput key={index} value={time} onChange={(value: number) => {insertAtIndex(value, index)}} className='input-box-content grow' />
+                        return <TimeInput key={index} value={time} onChange={(value: number) => { insertAtIndex(value, index) }} className='input-box-content grow' />
                     })}
                     <div className="input-box-content button-field">
                         <button className='button' onClick={() => { setTimes((oldValue) => [...oldValue, 0]); setNumTimes((oldValue) => oldValue + 1) }}>Add Time</button>

@@ -65,7 +65,7 @@ export default function Scoring() {
                     {isTrack ?
                         <>
                             <div className={`${styles["input-box-content"]}`} style={{ height: '6rem', padding: 0, border: 'none' }}>
-                                <Dropdown className={styles.dropdown} placeholder="Enter Number of Events" index={index} setIndex={setIndex} items={eventOptions} setValue={(value: number) => { setNumEvents(value); setCustom(value === 0) }} />
+                                <Dropdown className={styles.dropdown} placeholder={`Enter Number${!isBreakpoint ? " of Events" : ""}`} index={index} setIndex={setIndex} items={eventOptions} setValue={(value: number) => { setNumEvents(value); setCustom(value === 0) }} />
                                 {custom ? <div className={styles.overlay}>
                                     <input type="number" placeholder="Custom Distance" className='input custom' defaultValue={numEvents} onChange={(e) => setNumEvents(parseFloat(e.target.value ? e.target.value : '0'))} />
                                     <FontAwesomeIcon icon={faBan} className='icon' onClick={() => setCustom(false)} />
