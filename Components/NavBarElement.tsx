@@ -44,10 +44,9 @@ export default function NavBarElement({ wide = false, icon, link, text, current 
 
     useEffect(() => {
         if (!arrowRef.current) return
+        
         arrowRef.current.style.setProperty('--color', (isFocused || hovered) ? 'white' : 'black')
-        if(!isBreakpoint){
-            arrowRef.current.style.setProperty('--color', 'black')
-        }
+
     }, [arrowRef, isFocused, hovered])
 
     return (
