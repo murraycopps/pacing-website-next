@@ -1,10 +1,15 @@
 import NavBar from "./NavBar";
 import Head from "next/head";
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 import { useState } from "react";
 
 export default function PageWrapper({ children, page, className }: { children: ReactNode, page: string, className?: string }) {
     const [wide, setWide] = useState(false)
+
+    useEffect(() => {
+        window.scrollTo(0, 1);
+    }, [])
+    
     return (
         <div className="page">
             <Head>
